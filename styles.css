@@ -1,0 +1,129 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    background-color: #ffe0e0;
+    font-family: Arial, sans-serif;
+    transition: background-color 0.5s cubic-bezier(0.42, 0, 0.58, 1);
+}
+
+body.night-mode {
+    background-color: #40426d;
+}
+
+.switch-container {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #c281ff;
+    transition: background-color 0.5s cubic-bezier(0.42, 0, 0.58, 1);
+    border-radius: 34px;
+}
+    
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: transform 0.5s cubic-bezier(0.42, 0, 0.58, 1), background-image 0.5s;
+    border-radius: 50%;
+    background-image: url('images/star.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+input:checked + .slider {
+    background-color: #ffadc7;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+    background-image: url('images/sakura.png');
+}
+
+.background {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    perspective: 1000px;
+    transition: background-color 0.5s cubic-bezier(0.42, 0, 0.58, 1);
+}
+
+.particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.particle, .explosion {
+    position: absolute;
+    top: -50px;
+    background: url('images/sakura.png') no-repeat center center;
+    background-size: contain;
+    opacity: 0.8;
+    pointer-events: auto;
+    will-change: transform;
+    filter: drop-shadow(0 0 15px rgba(0, 0, 0, 0.3));
+    transition: background-image 0.5s cubic-bezier(0.42, 0, 0.58, 1);
+}
+
+body.night-mode .particle, body.night-mode .explosion {
+    background-image: url('images/star.png');
+}
+
+.particle {
+    animation: fall linear infinite;
+}
+
+.particle:hover {
+    animation-play-state: paused;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(-50px) rotate(0deg);
+    }
+    100% {
+        transform: translateY(calc(100vh + 50px)) rotate(360deg);
+    }
+}
+
+@keyframes explode {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(3);
+        opacity: 0;
+    }
+}
